@@ -1,0 +1,42 @@
+<article
+  class="bg-white h-100 rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-scale duration-300 border border-gray-200"
+>
+  <!-- Character Image -->s
+  <div class="h-48 overflow-hidden bg-gray-100">
+    <img [src]="character().image" [alt]="character().name" class="w-full h-full object-cover" />
+  </div>
+
+  <!-- Status Badge -->
+  <div class="px-6 pt-4 pb-2">
+    <p-tag
+      [value]="character().status"
+      [severity]="character().status === 'Alive' ? 'success' : character().status === 'Dead' ? 'danger' : 'info'"
+    ></p-tag>
+  </div>
+
+  <!-- Character Info -->
+  <div class="px-6 pb-4">
+    <h2
+      class="text-xl font-bold text-gray-900 mb-3 line-clamp-1"
+      [pTooltip]="character().name"
+      tooltipPosition="top"
+    >
+      {{ character().name }}
+    </h2>
+
+    <div class="space-y-2 text-sm text-gray-700">
+      <div class="flex justify-between">
+        <span class="font-semibold text-gray-900">Species:</span>
+        <span>{{ character().species }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-semibold text-gray-900">Gender:</span>
+        <span>{{ character().gender }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-semibold text-gray-900">ID:</span>
+        <span class="text-gray-500">{{ character().id }}</span>
+      </div>
+    </div>
+  </div>
+</article>

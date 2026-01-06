@@ -1,3 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap');
+
+:root {
+  font-optical-sizing: auto;
+
+  button {
+    cursor: pointer;
+  }
+
+  * {
+    border-color: var(--color-gray-300);
+  }
+}
+
+@theme {
+  --color-primary: var(--color-zinc-50);
+  --font-sans: 'Atkinson Hyperlegible Mono', sans-serif;
+
+  --grid-accordion-open: 1fr;
+  --grid-accordion-closed: 0fr;
+}

@@ -1,0 +1,79 @@
+<section class="container mx-auto">
+  <h1 class="text-center text-2xl">Rick & Morty Encyclopedia</h1>
+  <form [formGroup]="form">
+    <input
+      type="text"
+      pInputText
+      formControlName="searchTerm"
+      placeholder="Search characters..."
+      class="w-full px-4 py-2 mt-4 mb-6"
+      name="search"
+    />
+    <div class="flex justify-end">
+      <p-button
+        label="Show all filters"
+        icon="pi pi-filter"
+        (onClick)="toggleShowAllFilters()"
+        styleClass="p-button-sm"
+      ></p-button>
+    </div>
+
+    <div
+      class="grid transition-[grid-template-rows] duration-300 mt-4"
+      [class]="showAllFilters() ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+    >
+      <div class="overflow-hidden">
+        <div class="border rounded">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+            <!-- Status -->
+            <label class="block">
+              <span class="block text-sm font-medium text-gray-300 mb-1">Status</span>
+              <p-select
+                formControlName="status"
+                [options]="statusesOptions"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+              ></p-select>
+            </label>
+
+            <!-- Species -->
+            <label class="block">
+              <span class="block text-sm font-medium text-gray-300 mb-1">Species</span>
+              <input
+                type="text"
+                pInputText
+                formControlName="species"
+                placeholder="e.g., Human"
+                class="w-full"
+              />
+            </label>
+
+            <!-- Gender -->
+            <label class="block">
+              <span class="block text-sm font-medium text-gray-300 mb-1">Gender</span>
+              <p-select
+                formControlName="gender"
+                [options]="gendersOptions"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+              ></p-select>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    @if (loading()) { @for (skeleton of range(8); track skeleton) {
+    <p-skeleton height="16rem" styleClass="border rounded-lg"></p-skeleton>
+    } } @else if (error()) {
+    <p class="text-center text-red-500">Error loading characters: {{ error()?.message }}</p>
+    } @else if (characters().length === 0) {
+    <p class="text-center text-gray-500">No characters found.</p>
+    } @else { @for (character of characters(); track character.id ){
+    <app-character-card [character]="character" />
+    } }
+  </div>
+</section>
