@@ -18,11 +18,12 @@
       ></p-button>
     </div>
 
+    <!-- all filters accordion -->
     <div
       class="grid transition-[grid-template-rows] duration-300 mt-4"
       [class]="showAllFilters() ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
     >
-      <div class="overflow-hidden">
+      <div [class]="accordionWrapperClass()">
         <div class="border rounded">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
             <!-- Status -->

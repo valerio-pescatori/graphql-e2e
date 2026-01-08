@@ -1,4 +1,4 @@
-import { Component, inject, Signal, signal } from '@angular/core';
+import { Component, effect, inject, Signal, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
@@ -40,6 +40,7 @@ export class Homepage {
   readonly loading: Signal<boolean>;
   readonly error: Signal<ErrorLike | null>;
   readonly currentPage = signal(1);
+  readonly accordionWrapperClass = signal('overflow-hidden');
   readonly characters: Signal<Character[]>;
   readonly showAllFilters = signal(false);
   readonly statuses = CHARACTER_STATUSES;
@@ -55,6 +56,18 @@ export class Homepage {
   ];
 
   constructor() {
+    effect(() => {
+      // when opening set overflow visible after transition end
+      const newState = this.showAllFilters();
+      if (newState) {
+        setTimeout(() => {
+          this.accordionWrapperClass.set('overflow-visible');
+        }, 300);
+        removeEventListener;
+      }
+      this.accordionWrapperClass.set('overflow-hidden');
+    });
+
     const query$ = this.apollo.watchQuery({
       query: GET_CHARACTERS_QUERY,
       variables: { page: this.currentPage() },
